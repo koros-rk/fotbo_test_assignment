@@ -20,6 +20,7 @@ import { CardTitle } from "./card-title.tsx";
 interface CardProps {
   best: boolean;
   index: number;
+  period: string;
   tariff: (typeof response)["doc"]["list"][0]["elem"][number] & {
     selectedPrice?: (typeof response)["doc"]["list"][0]["elem"][number]["prices"]["price"][number];
   };
@@ -36,8 +37,12 @@ const getDetail = (
   );
 };
 
-export const Card: FC<CardProps> = ({ tariff, best, index }) => {
+export const Card: FC<CardProps> = ({ tariff, best, index, period }) => {
   const monitor_icon = [monitors_2, monitors_3, monitors_4, monitors_m];
+
+  const selectedPrice = tariff.prices.price.find(
+    (price) => price.period.$ === period,
+  );
 
   return (
     <CardContainer>
@@ -46,8 +51,8 @@ export const Card: FC<CardProps> = ({ tariff, best, index }) => {
       <CardTitle
         label={tariff.title.$.split("|")[0]}
         image={monitor_icon[index]}
-        price={+(tariff.selectedPrice?.cost?.$ ?? 0)}
-        currency={tariff.selectedPrice?.currency?.$ ?? ""}
+        price={+(selectedPrice?.cost?.$ ?? 0)}
+        currency={selectedPrice?.currency?.$ ?? ""}
         parameters={[
           getDetail(tariff, "CPU count") + " TRM",
           getDetail(tariff, "Memory"),

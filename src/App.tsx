@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import Skeleton from "react-loading-skeleton";
 import { css } from "../styled-system/css";
-import { Center, Flex, HStack, VStack } from "../styled-system/jsx";
+import { Box, Center, Flex, HStack, VStack } from "../styled-system/jsx";
 import { TariffListQuery } from "./api/tariff-list.query.ts";
 import { Text } from "./ui/text/text.tsx";
 import { Card } from "./widgets/card/ui/card.tsx";
@@ -17,25 +18,38 @@ const bg = css({
 
 export const App = () => {
   const [period, setPeriod] = useState(`-50`);
-  const [dataCenter, setDataCenter] = useState(DATACENTERS.poland.id);
+  const [datacenter, setDataCenter] = useState(DATACENTERS.poland.id);
 
-  const { data, isSuccess } = useQuery(
-    TariffListQuery({ data_center: dataCenter, period }),
+  const { data, isSuccess, isLoading } = useQuery(
+    TariffListQuery({ datacenter }),
   );
 
   return (
-    <Flex className={bg} minH="100vh" w="100vw">
-      <Center w="1440px" mx={"auto"} maxW="1440px" h={"100vh"}>
-        <VStack gap={"9"} py={"8"} alignItems={"stretch"}>
+    <Flex overflow={"hidden"} className={bg} minH="100vh" w="100vw">
+      <Box w="1440px" mx={"auto"} maxW="1440px" h={"100vh"}>
+        <VStack h={"full"} gap={"9"} py={"8"} alignItems={"stretch"}>
           <Heading />
           <HStack gap={"10px"}>
             <DatacenterSelector
-              dataCenter={dataCenter}
+              dataCenter={datacenter}
               setDataCenter={setDataCenter}
             />
             <PeriodSelector period={period} setPeriod={setPeriod} />
           </HStack>
           <HStack alignItems={"stretch"} h={"full"} gap={"18px"}>
+            {isLoading &&
+              new Array(4)
+                .fill("")
+                .map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    height={"100%"}
+                    style={{ flexGrow: "1" }}
+                    containerClassName={css({ flexGrow: "1" })}
+                    borderRadius={"32px"}
+                  />
+                ))}
+
             {isSuccess &&
               data.map((item, index, arr) => (
                 <Card
@@ -43,6 +57,7 @@ export const App = () => {
                   tariff={item}
                   best={index === arr.length - 2}
                   index={index}
+                  period={period}
                 />
               ))}
             {isSuccess && data.length === 0 && (
@@ -52,7 +67,7 @@ export const App = () => {
             )}
           </HStack>
         </VStack>
-      </Center>
+      </Box>
     </Flex>
   );
 };
