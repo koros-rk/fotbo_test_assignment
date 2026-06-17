@@ -21,9 +21,7 @@ interface CardProps {
   best: boolean;
   index: number;
   period: string;
-  tariff: (typeof response)["doc"]["list"][0]["elem"][number] & {
-    selectedPrice?: (typeof response)["doc"]["list"][0]["elem"][number]["prices"]["price"][number];
-  };
+  tariff: (typeof response)["doc"]["list"][0]["elem"][number];
 }
 
 const getDetail = (
@@ -49,6 +47,7 @@ export const Card: FC<CardProps> = ({ tariff, best, index, period }) => {
       {best && <CardChip />}
 
       <CardTitle
+        tariff={tariff}
         label={tariff.title.$.split("|")[0]}
         image={monitor_icon[index]}
         price={+(selectedPrice?.cost?.$ ?? 0)}
@@ -102,9 +101,9 @@ export const Card: FC<CardProps> = ({ tariff, best, index, period }) => {
         </Flex>
       </VStack>
 
-      <HStack mt={"auto"} gap={"0"}>
-        <CardButton icon={<ShoppingBag />}>Купить</CardButton>
-      </HStack>
+      <CardButton href={`/buy?tariff_id=${tariff.id.$}`} icon={<ShoppingBag />}>
+        Купить
+      </CardButton>
     </CardContainer>
   );
 };

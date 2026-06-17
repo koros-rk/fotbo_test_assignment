@@ -1,10 +1,11 @@
 import type { FC } from "react";
-import { css } from "../../../../styled-system/css";
 import { HStack, VStack } from "../../../../styled-system/jsx";
-import { MoreVert } from "../../../ui/icons/more-vert.tsx";
+import response from "../../../api/respons.json";
 import { Text } from "../../../ui/text/text.tsx";
+import { CardTitleDropdown } from "./card-title-dropdown.tsx";
 
 interface CardTitleProps {
+  tariff: (typeof response)["doc"]["list"][0]["elem"][number];
   label: string;
   price: number;
   currency: string;
@@ -34,25 +35,7 @@ export const CardTitle: FC<CardTitleProps> = (props) => {
         </VStack>
         <img src={props.image} alt="cloud-forex-1" />
       </HStack>
-      <HStack
-        p={"3px 5px 3px 9px"}
-        justify={"space-between"}
-        backgroundColor={"#FFEDF8/80"}
-        borderRadius={"full"}
-      >
-        <p
-          className={css({
-            fontFamily: "Inter, sans-serif",
-            fontWeight: "medium",
-            fontSize: "12px",
-            lineHeight: "140%",
-            letterSpacing: "-2%",
-          })}
-        >
-          {props.parameters.join(" · ")}
-        </p>
-        <MoreVert />
-      </HStack>
+      <CardTitleDropdown parameters={props.tariff.detail} />
     </VStack>
   );
 };
