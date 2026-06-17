@@ -3,6 +3,9 @@ import { Flex, HStack, VStack } from "../../../../styled-system/jsx";
 import response from "../../../api/respons.json";
 import monitors_1 from "../../../assets/monitors_1.svg";
 import monitors_2 from "../../../assets/monitors_2.svg";
+import monitors_3 from "../../../assets/monitors_3.svg";
+import monitors_4 from "../../../assets/monitors_4.svg";
+import monitors_m from "../../../assets/monitors_m.svg";
 import { Question } from "../../../ui/icons/question.tsx";
 import { ShoppingBag } from "../../../ui/icons/shopping-bag.tsx";
 import { Tick } from "../../../ui/icons/tick.tsx";
@@ -15,6 +18,8 @@ import { CardTag } from "./card-tag.tsx";
 import { CardTitle } from "./card-title.tsx";
 
 interface CardProps {
+  best: boolean;
+  index: number;
   tariff: (typeof response)["doc"]["list"][0]["elem"][number] & {
     selectedPrice?: (typeof response)["doc"]["list"][0]["elem"][number]["prices"]["price"][number];
   };
@@ -31,14 +36,16 @@ const getDetail = (
   );
 };
 
-export const Card: FC<CardProps> = ({ tariff }) => {
+export const Card: FC<CardProps> = ({ tariff, best, index }) => {
+  const monitor_icon = [monitors_2, monitors_3, monitors_4, monitors_m];
+
   return (
     <CardContainer>
-      <CardChip />
+      {best && <CardChip />}
 
       <CardTitle
         label={tariff.title.$.split("|")[0]}
-        image={monitors_2}
+        image={monitor_icon[index]}
         price={+(tariff.selectedPrice?.cost?.$ ?? 0)}
         currency={tariff.selectedPrice?.currency?.$ ?? ""}
         parameters={[

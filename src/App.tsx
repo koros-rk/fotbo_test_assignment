@@ -25,33 +25,34 @@ export const App = () => {
 
   return (
     <Flex className={bg} minH="100vh" w="100vw">
-      <VStack
-        gap={"9"}
-        py={"8"}
-        alignItems={"stretch"}
-        mx={"auto"}
-        h={"100vh"}
-        maxW="1440px"
-        w="1440px"
-      >
-        <Heading />
-        <HStack gap={"10px"}>
-          <DatacenterSelector
-            dataCenter={dataCenter}
-            setDataCenter={setDataCenter}
-          />
-          <PeriodSelector period={period} setPeriod={setPeriod} />
-        </HStack>
-        <HStack alignItems={"stretch"} h={"full"} gap={"18px"}>
-          {isSuccess &&
-            data.map((item) => <Card key={item.id.$} tariff={item} />)}
-          {isSuccess && data.length === 0 && (
-            <Center flexGrow={"1"}>
-              <Text variant={"h2"}>No Tariffs found</Text>
-            </Center>
-          )}
-        </HStack>
-      </VStack>
+      <Center w="1440px" mx={"auto"} maxW="1440px" h={"100vh"}>
+        <VStack gap={"9"} py={"8"} alignItems={"stretch"}>
+          <Heading />
+          <HStack gap={"10px"}>
+            <DatacenterSelector
+              dataCenter={dataCenter}
+              setDataCenter={setDataCenter}
+            />
+            <PeriodSelector period={period} setPeriod={setPeriod} />
+          </HStack>
+          <HStack alignItems={"stretch"} h={"full"} gap={"18px"}>
+            {isSuccess &&
+              data.map((item, index, arr) => (
+                <Card
+                  key={item.id.$}
+                  tariff={item}
+                  best={index === arr.length - 2}
+                  index={index}
+                />
+              ))}
+            {isSuccess && data.length === 0 && (
+              <Center flexGrow={"1"}>
+                <Text variant={"h2"}>No Tariffs found</Text>
+              </Center>
+            )}
+          </HStack>
+        </VStack>
+      </Center>
     </Flex>
   );
 };
