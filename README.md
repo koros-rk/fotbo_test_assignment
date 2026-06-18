@@ -1,73 +1,193 @@
-# React + TypeScript + Vite
+# Репозиторії
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Тестове завдання:
+  https://github.com/koros-rk/fotbo_test_assignment
 
-Currently, two official plugins are available:
+- Proxy server:
+  https://github.com/koros-rk/fotbo_test_assignment_proxy
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+# Флоу виконання завдання
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Ініціалізація базового проекту (react-ts template) та встановлення базових залежностей
+2. Ініціалізація Panda CSS
+3. Створення мінімальних UI елементів (text, icons, ...)
+4. Page Skeleton — базовий лаяйут елементів
+5. Верстка Card компонети
+6. Верстка Data Center Selector
+7. Верстка Period Selector
+8. Перша інтеграція з API (без проксі)
+9. Деплой першої версії на Render
+10. Створення proxy сервера для API
+11. Інтеграція з API через proxy
+12. Фінальний огляд та правки елементів, стилізації, структури
+13. Деплой фінальної версії на Render
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# UX Improvements та оптимізації
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
+- Адаптивна верстка
+- Семантична HTML структура
+- Skeleton loading для стану завантаження тарифів
+- Кешування отримання та фільтрації респонсу API
+
+---
+
+# Важливі уточнення
+
+### Proxy сервер
+
+- Proxy сервер був доданий через те, що наданий API не повертав необхідні CORS-заголовки, внаслідок чого прямі запити з браузера блокувались політикою безпеки браузера (CORS).
+- Proxy використовувався виключно як транспортний шар для отримання даних та не містить додаткової бізнес-логіки.
+
+### Використання Panda CSS
+
+- Згідно вимог тестового завдання обов'язковим є використання SCSS.
+- Для пришвидшення розробки в умовах обмеженого часу було використано Panda CSS, який генерує статичний оптимізований CSS під час збірки проєкту.
+- З точки зору опису стилів Panda CSS є концептуально близьким до SCSS та підтримує більшість звичних можливостей:
+    - вкладені селектори
+    - псевдокласи
+    - псевдоелементи
+    - медіа-запити
+    - композицію стилів
+- Додатково Panda CSS надає типізацію стилів, підтримку design tokens та build-time оптимізації без використання runtime CSS-in-JS рішень.
+
+---
+
+# Розподіл роботи між AI та ручною реалізацією
+
+## AI використовувався для
+
+- Витягу стилів з Figma
+- Конвертація CSS для Panda CSS
+- Аналіз API та його респонсу
+- Доналаштування proxy сервера
+
+## Вручну виконано
+
+- Структура проекту
+- Верстка усіх компонентів
+- API layer
+- Інтеграція з API
+- Фінальна оптимізація
+- Деплой на Render
+
+---
+
+# Складнощі
+
+## Проблема №1
+
+### Проблема
+
+Прямі запити з браузера до наданого API блокувались політикою CORS через відсутність необхідних CORS-заголовків на стороні сервера.
+
+### Рішення
+
+Було реалізовано проміжний proxy-сервер, через який виконувались запити до API. Це дозволило обійти браузерні обмеження CORS та забезпечити коректну взаємодію клієнтського застосунку з API.
+
+---
+
+## Проблема №2
+
+### Проблема
+
+API не містило достатньої документації щодо структури відповіді та призначення окремих полів.
+
+### Рішення
+
+Було проведено дослідження фактичної відповіді API, використано AI для пришвидшення аналізу структури даних та формування гіпотез щодо призначення полів. Остаточна схема даних та логіка відображення були визначені та перевірені вручну.
+
+---
+
+# Використані AI-інструменти
+
+- Cursor AI (Composer 2.5 Fast)
+- ChatGPT GO (GPT-5.5)
+
+---
+
+# Використані промпти для Cursor
+
+## Отримання typography стилів з Figma
+
+```plaintext
+Open the Figma file "fotbo_test_assignment".
+
+Extract typography properties from all text components.
+
+Return an array of JSON objects in the following format:
+
+[
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+    "name": "Heading H1",
+    "text example": "Buy Forex VPS plans",
+    "fontSize": 54,
+    "fontWeight": regular,
+    "letterSpacing": -2.7px,
+    "lineHeight": 54
+  }
+]
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Requirements:
+- Return only valid JSON.
+- Include all unique text styles.
+- Do not include explanations or markdown.
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Отримання стилів для Card компоненти
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```plaintext
+Open the Figma file "fotbo_test_assignment".
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Locate the root component named "Tariff Component" and inspect both variants:
+- Idle
+- Hover
+
+For each variant, extract only the following visual properties from the component root container:
+
+- background-color
+- background-image
+- border-width
+- border-style
+- border-color
+- border-radius
+- box-shadow
+
+Requirements:
+- Read values directly from the component styles in Figma.
+- Do not infer or approximate values from screenshots.
+- Convert all values to valid CSS syntax.
+- If a property is not defined, omit it.
+- Return the result as plain CSS blocks.
+
+Output format:
+
+Idle:
+```css
+.tariff-card {
+  ...
+}
 ```
+
+
+---
+
+# Використання Cursor
+
+- Загальна кількість токенів: 595.2K
+- Орієнтовна вартість: $1.33
+
+---
+
+# Деплой
+
+Frontend:
+https://fotbo-test-assignment.onrender.com/
+
+Proxy:
+https://fotbo-test-assignment-proxy.onrender.com/
+
+P.S. Render призупиняє роботу неактивних сервісів, тому перший API реквест може тривати більше звичайного
