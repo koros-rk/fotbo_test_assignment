@@ -1,4 +1,4 @@
-import response_json from "./respons.json";
+import response_json from "./typing-response.json";
 
 const DEFAULT_BODY = {
   func: "v2.instances.order.pricelist",

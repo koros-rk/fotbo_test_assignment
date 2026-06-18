@@ -1,4 +1,5 @@
-import { sva } from "../../../../styled-system/css";
+import { css, sva } from "../../../../styled-system/css";
+import { token } from "../../../../styled-system/tokens";
 
 export const dropdownRecipe = sva({
   slots: ["trigger", "content", "item", "label", "value"],
@@ -24,8 +25,7 @@ export const dropdownRecipe = sva({
       outline: "none",
       px: "8px",
       borderRadius: "6px",
-      background:
-        "linear-gradient(90.03deg, rgba(249, 240, 237, 0.3) -0.01%, rgba(204, 203, 211, 0.16) 53.84%, rgba(225, 220, 223, 0.3) 99.04%)",
+      background: token("gradients.card-dropdown"),
     },
     label: {
       fontFamily: "Inter, sans-serif",
@@ -46,4 +46,12 @@ export const dropdownRecipe = sva({
       letterSpacing: "-4%",
     },
   },
+});
+
+export const dropdownText = css({
+  fontFamily: "Inter, sans-serif",
+  fontWeight: "medium",
+  fontSize: "12px",
+  lineHeight: "140%",
+  letterSpacing: "-2%",
 });

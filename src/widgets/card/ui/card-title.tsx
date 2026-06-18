@@ -1,16 +1,15 @@
 import type { FC } from "react";
 import { HStack, VStack } from "../../../../styled-system/jsx";
-import response from "../../../api/respons.json";
+import type { Tariff } from "../../../api/tariff.types.ts";
 import { Text } from "../../../ui/text/text.tsx";
 import { CardTitleDropdown } from "./card-title-dropdown.tsx";
 
 interface CardTitleProps {
-  tariff: (typeof response)["doc"]["list"][0]["elem"][number];
+  tariff: Tariff;
   label: string;
   price: number;
   currency: string;
   image: string;
-  parameters: string[];
 }
 
 export const CardTitle: FC<CardTitleProps> = (props) => {
@@ -35,7 +34,7 @@ export const CardTitle: FC<CardTitleProps> = (props) => {
         </VStack>
         <img src={props.image} alt="cloud-forex-1" />
       </HStack>
-      <CardTitleDropdown parameters={props.tariff.detail} />
+      <CardTitleDropdown tariff={props.tariff} />
     </VStack>
   );
 };

@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { css } from "../styled-system/css";
-import { Box, Center, Flex, HStack, VStack } from "../styled-system/jsx";
+import { Center, Flex, HStack, VStack } from "../styled-system/jsx";
+import { token } from "../styled-system/tokens";
 import { TariffListQuery } from "./api/tariff-list.query.ts";
 import { Text } from "./ui/text/text.tsx";
 import { Card } from "./widgets/card/ui/card.tsx";
@@ -10,11 +11,6 @@ import { DATACENTERS } from "./widgets/datacenter-selector/model/datacenter-sele
 import { DatacenterSelector } from "./widgets/datacenter-selector/ui/datacenter-selector.tsx";
 import { Heading } from "./widgets/heading/ui/heading.tsx";
 import { PeriodSelector } from "./widgets/period-selector/ui/period-selector.tsx";
-
-const bg = css({
-  background:
-    "radial-gradient(circle,rgba(38, 20, 51, 1) 0%, rgba(22, 7, 32, 1) 100%)",
-});
 
 export const App = () => {
   const [period, setPeriod] = useState(`-50`);
@@ -25,9 +21,14 @@ export const App = () => {
   );
 
   return (
-    <Flex overflow={"hidden"} className={bg} minH="100vh" w="100vw">
-      <Box w="1440px" mx={"auto"} maxW="1440px" h={"100vh"}>
-        <VStack h={"full"} gap={"9"} py={"8"} alignItems={"stretch"}>
+    <Flex
+      background={token("gradients.background-radial")}
+      overflow={"hidden"}
+      minH="100vh"
+      w="100vw"
+    >
+      <Center mx={"auto"} maxW="1440px" h={"100vh"}>
+        <VStack w="1440px" gap={"9"} py={"8"} alignItems={"stretch"}>
           <Heading />
           <HStack gap={"10px"}>
             <DatacenterSelector
@@ -36,7 +37,7 @@ export const App = () => {
             />
             <PeriodSelector period={period} setPeriod={setPeriod} />
           </HStack>
-          <HStack alignItems={"stretch"} h={"full"} gap={"18px"}>
+          <HStack alignItems={"stretch"} h={"614px"} gap={"18px"}>
             {isLoading &&
               new Array(4)
                 .fill("")
@@ -67,7 +68,7 @@ export const App = () => {
             )}
           </HStack>
         </VStack>
-      </Box>
+      </Center>
     </Flex>
   );
 };

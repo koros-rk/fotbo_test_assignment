@@ -1,4 +1,5 @@
 import { Box } from "../../../../styled-system/jsx";
+import { token } from "../../../../styled-system/tokens";
 import { Text } from "../../../ui/text/text.tsx";
 
 export const CardChip = () => {
@@ -9,10 +10,10 @@ export const CardChip = () => {
       left={"50%"}
       transition={"all 0.3s ease-in-out"}
       transform={"translate(-50%, -50%)"}
-      background={"linear-gradient(90deg, #FF4AB7 0%, #C830B9 100%)"}
+      background={token("gradients.card-chip-background")}
       p={"10px"}
       borderRadius={"50px"}
-      border={"1px solid"}
+      zIndex={"1"}
     >
       <Text
         css={{ lineHeight: "0", textTransform: "uppercase" }}

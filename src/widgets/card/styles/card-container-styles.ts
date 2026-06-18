@@ -1,6 +1,9 @@
 import { css } from "../../../../styled-system/css";
+import { token } from "../../../../styled-system/tokens";
 
-export const CardContainerStyles = css({
+export const cardContainerStyles = css({
+  transition: "all 0.6s ease-in-out",
+
   _before: {
     content: '""',
     position: "absolute",
@@ -32,8 +35,7 @@ export const CardContainerStyles = css({
     borderRadius: "inherit",
     opacity: "0.6",
 
-    background:
-      "linear-gradient(90deg, rgb(190 78 255 / 0.1) 38%, rgb(255 74 183 / 0.1) 100%)",
+    background: token("gradients.card-border-idle"),
 
     pointerEvents: "none",
   },
@@ -47,9 +49,12 @@ export const CardContainerStyles = css({
     "& .card-header": {
       background: "#C54092",
     },
+    "& .card-glow": {
+      width: "200px",
+    },
+
     _before: {
-      background:
-        "linear-gradient(180deg, #E6BCFF 0%, rgb(190 78 255 / 0.5) 100%)",
+      background: token("gradients.card-border-hover"),
     },
   },
 });

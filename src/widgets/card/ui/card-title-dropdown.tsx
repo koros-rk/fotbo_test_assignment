@@ -1,25 +1,17 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { type FC, useState } from "react";
 import { Box, Grid, GridItem, HStack } from "../../../../styled-system/jsx";
-import response from "../../../api/respons.json";
+import type { Tariff } from "../../../api/tariff.types.ts";
 import { MoreVert } from "../../../ui/icons/more-vert.tsx";
-import { dropdownRecipe } from "../styles/cart-dropdown.styles.ts";
-import { dropdownText } from "../styles/cart-typography.styles.ts";
+import { getDetail } from "../lib/get-detail.ts";
+import {
+  dropdownRecipe,
+  dropdownText,
+} from "../styles/cart-dropdown.styles.ts";
 
 interface CardTitleProps {
-  parameters: (typeof response)["doc"]["list"][0]["elem"][number]["detail"];
+  tariff: Tariff;
 }
-
-const getDetail = (
-  details: (typeof response)["doc"]["list"][0]["elem"][number]["detail"],
-  detail: string,
-) => {
-  return (
-    details.find((t) => {
-      return t.name.$.toLocaleLowerCase() === detail.toLowerCase();
-    })?.value.$ ?? ""
-  );
-};
 
 export const CardTitleDropdown: FC<CardTitleProps> = (props) => {
   const [open, setOpen] = useState(false);
@@ -36,10 +28,10 @@ export const CardTitleDropdown: FC<CardTitleProps> = (props) => {
         >
           <p className={dropdownText}>
             {[
-              getDetail(props.parameters, "CPU count") + " TRM",
-              getDetail(props.parameters, "Memory"),
-              getDetail(props.parameters, "Disk space"),
-              getDetail(props.parameters, "Port speed"),
+              getDetail(props.tariff, "CPU count") + " TRM",
+              getDetail(props.tariff, "Memory"),
+              getDetail(props.tariff, "Disk space"),
+              getDetail(props.tariff, "Port speed"),
             ].join(" · ")}
           </p>
           <Box
@@ -53,7 +45,7 @@ export const CardTitleDropdown: FC<CardTitleProps> = (props) => {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className={recipe.content}>
-          {props.parameters.map(({ name, value }) => (
+          {props.tariff.detail.map(({ name, value }) => (
             <DropdownMenu.Item className={recipe.item}>
               <Grid flexGrow={"1"} columns={2}>
                 <GridItem className={recipe.label}>{name.$}</GridItem>

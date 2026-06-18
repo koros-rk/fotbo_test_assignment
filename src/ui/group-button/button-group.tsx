@@ -1,8 +1,8 @@
 import type { FC, ReactNode } from "react";
 import { HStack } from "../../../styled-system/jsx";
 import {
-  ButtonGroupItemStyles,
-  ButtonGroupRootStyles,
+  buttonGroupItemRecipe,
+  buttonGroupRootStyles,
 } from "./button-group.styles.ts";
 
 interface ButtonGroupItem {
@@ -33,11 +33,12 @@ export const ButtonGroup: FC<ButtonGroupProps> = ({
   };
 
   return (
-    <HStack className={ButtonGroupRootStyles}>
+    <HStack className={buttonGroupRootStyles}>
       {items.map((item) => (
         <button
+          key={item.value}
           onClick={handleClick(item)}
-          className={ButtonGroupItemStyles({ active: isActive(item) })}
+          className={buttonGroupItemRecipe({ active: isActive(item) })}
         >
           {item.icon}
           {item.label}

@@ -1,14 +1,14 @@
 import type { FC, PropsWithChildren } from "react";
 import { VStack } from "../../../../styled-system/jsx";
-import { CardContainerStyles } from "../styles/card-container-styles.ts";
+import { cardContainerStyles } from "../styles/card-container-styles.ts";
 
 export const CardContainer: FC<PropsWithChildren> = ({ children }) => {
   return (
     <VStack
-      className={CardContainerStyles}
+      className={cardContainerStyles}
       position={"relative"}
       flexGrow={"1"}
-      h={"614px"}
+      minH={"614px"}
       alignItems={"stretch"}
       borderRadius={"32px"}
       p={"20px 16px 16px"}

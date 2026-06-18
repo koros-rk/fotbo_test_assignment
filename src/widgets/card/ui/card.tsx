@@ -1,15 +1,18 @@
-import type { FC } from "react";
-import { Flex, HStack, VStack } from "../../../../styled-system/jsx";
-import response from "../../../api/respons.json";
+import { type FC } from "react";
+import { css } from "../../../../styled-system/css";
+import { Box, Flex, HStack, VStack } from "../../../../styled-system/jsx";
+import type { Tariff } from "../../../api/tariff.types.ts";
 import monitors_1 from "../../../assets/monitors_1.svg";
 import monitors_2 from "../../../assets/monitors_2.svg";
 import monitors_3 from "../../../assets/monitors_3.svg";
 import monitors_4 from "../../../assets/monitors_4.svg";
-import monitors_m from "../../../assets/monitors_m.svg";
+import monitors_m from "../../../assets/monitors_6.svg";
 import { Question } from "../../../ui/icons/question.tsx";
 import { ShoppingBag } from "../../../ui/icons/shopping-bag.tsx";
 import { Tick } from "../../../ui/icons/tick.tsx";
 import { Text } from "../../../ui/text/text.tsx";
+import { getDetail } from "../lib/get-detail.ts";
+import { cardGlowStyles } from "../styles/card-glow.styles.ts";
 import { CardButton } from "./card-button.tsx";
 import { CardChip } from "./card-chip.tsx";
 import { CardContainer } from "./card-container.tsx";
@@ -21,19 +24,8 @@ interface CardProps {
   best: boolean;
   index: number;
   period: string;
-  tariff: (typeof response)["doc"]["list"][0]["elem"][number];
+  tariff: Tariff;
 }
-
-const getDetail = (
-  tariff: (typeof response)["doc"]["list"][0]["elem"][number],
-  detail: string,
-) => {
-  return (
-    tariff.detail.find((t) => {
-      return t.name.$.toLocaleLowerCase() === detail.toLowerCase();
-    })?.value.$ ?? ""
-  );
-};
 
 export const Card: FC<CardProps> = ({ tariff, best, index, period }) => {
   const monitor_icon = [monitors_2, monitors_3, monitors_4, monitors_m];
@@ -46,18 +38,14 @@ export const Card: FC<CardProps> = ({ tariff, best, index, period }) => {
     <CardContainer>
       {best && <CardChip />}
 
+      <Box className={`card-glow ${cardGlowStyles}`} />
+
       <CardTitle
         tariff={tariff}
         label={tariff.title.$.split("|")[0]}
         image={monitor_icon[index]}
         price={+(selectedPrice?.cost?.$ ?? 0)}
         currency={selectedPrice?.currency?.$ ?? ""}
-        parameters={[
-          getDetail(tariff, "CPU count") + " TRM",
-          getDetail(tariff, "Memory"),
-          getDetail(tariff, "Disk space"),
-          getDetail(tariff, "Port speed"),
-        ]}
       />
 
       <CardSection alignItems={"center"} px={"14px"}>
@@ -101,7 +89,11 @@ export const Card: FC<CardProps> = ({ tariff, best, index, period }) => {
         </Flex>
       </VStack>
 
-      <CardButton href={`/buy?tariff_id=${tariff.id.$}`} icon={<ShoppingBag />}>
+      <CardButton
+        className={css({ mt: "auto" })}
+        href={`/buy?tariff_id=${tariff.id.$}`}
+        icon={<ShoppingBag />}
+      >
         Купить
       </CardButton>
     </CardContainer>

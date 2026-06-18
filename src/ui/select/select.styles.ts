@@ -1,4 +1,5 @@
 import { sva } from "../../../styled-system/css";
+import { token } from "../../../styled-system/tokens";
 
 export const selectRecipe = sva({
   slots: ["trigger", "icon", "content", "item", "viewport"],
@@ -7,15 +8,14 @@ export const selectRecipe = sva({
       display: "flex",
       alignItems: "center",
       gap: "4px",
-      minWidth: "320px",
+      minWidth: "280px",
       height: "48px",
       px: "16px",
       borderRadius: "10px",
       border: "1px solid",
       borderColor: "#FFF/20",
       outline: "none",
-      background:
-        "linear-gradient(90deg, rgba(255 255 255 / 0.1) 0%, rgba(153 153 153 / 0.1) 100%)",
+      background: token("gradients.select"),
       "& input": {
         outline: "none",
       },
@@ -39,8 +39,7 @@ export const selectRecipe = sva({
       border: "1px solid",
       borderColor: "#FFF/20",
       outline: "none",
-      background:
-        "linear-gradient(90deg, rgba(255 255 255 / 0.1) 0%, rgba(153 153 153 / 0.1) 100%)",
+      background: token("gradients.select"),
 
       _before: {
         position: "absolute",

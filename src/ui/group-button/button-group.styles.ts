@@ -1,16 +1,16 @@
 import { css, cva } from "../../../styled-system/css";
+import { token } from "../../../styled-system/tokens";
 
-export const ButtonGroupRootStyles = css({
+export const buttonGroupRootStyles = css({
   p: "4px",
   gap: "4px",
   borderRadius: "10px",
   border: "1px solid",
   borderColor: "#999/20",
-  background:
-    "linear-gradient(90deg, rgba(255 255 255 / 0.1) 0%, rgba(153 153 153 / 0.1) 100%)",
+  background: token("gradients.button-group-root"),
 });
 
-export const ButtonGroupItemStyles = cva({
+export const buttonGroupItemRecipe = cva({
   base: {
     display: "flex",
     alignItems: "center",
@@ -36,7 +36,7 @@ export const ButtonGroupItemStyles = cva({
   variants: {
     active: {
       true: {
-        background: "linear-gradient(90deg, #B3B6C8 0%, #FFFFFF 100%)",
+        background: token("gradients.button-group-item"),
         color: "#1E132D",
       },
     },

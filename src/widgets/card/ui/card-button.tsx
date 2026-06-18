@@ -6,9 +6,9 @@ import {
 } from "react";
 import { Box } from "../../../../styled-system/jsx";
 import {
-  CardButtonIconStyles,
-  CardButtonMainStyles,
-  CardButtonRootStyles,
+  cardButtonIconStyles,
+  cardButtonMainStyles,
+  cardButtonRootStyles,
 } from "../styles/card-button.styles.ts";
 
 export interface ButtonProps
@@ -19,19 +19,20 @@ export interface ButtonProps
 
 export const CardButton = forwardRef<HTMLAnchorElement, ButtonProps>(
   function Component(props, ref) {
-    const { children, onClick, icon, href } = props;
+    const { children, onClick, icon, href, ...rest } = props;
 
     return (
       <a
+        {...rest}
         href={href}
         ref={ref}
         onClick={onClick}
-        className={CardButtonRootStyles}
+        className={`${cardButtonRootStyles} ${rest.className}`}
       >
-        <Box className={`card-button-main ${CardButtonMainStyles}`}>
+        <Box className={`card-button-main ${cardButtonMainStyles}`}>
           {children}
         </Box>
-        <Box className={`card-button-icon ${CardButtonIconStyles}`}>{icon}</Box>
+        <Box className={`card-button-icon ${cardButtonIconStyles}`}>{icon}</Box>
       </a>
     );
   },

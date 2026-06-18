@@ -45,7 +45,11 @@ export const AppSelect: FC<SelectProps> = ({
         <Select.Content position={"popper"} className={recipe.content}>
           <Select.Viewport className={recipe.viewport}>
             {items.map((item) => (
-              <Select.Item className={recipe.item} value={item.value}>
+              <Select.Item
+                key={item.value}
+                className={recipe.item}
+                value={item.value}
+              >
                 <Select.ItemText>{item.label}</Select.ItemText>
               </Select.Item>
             ))}

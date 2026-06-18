@@ -1,7 +1,7 @@
 import { css } from "../../../../styled-system/css";
 import { hstack } from "../../../../styled-system/patterns";
 
-export const CardButtonRootStyles = hstack({
+export const cardButtonRootStyles = hstack({
   w: "100%",
   gap: "0",
 
@@ -19,7 +19,7 @@ export const CardButtonRootStyles = hstack({
   },
 });
 
-export const CardButtonMainStyles = css({
+export const cardButtonMainStyles = css({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -44,7 +44,7 @@ export const CardButtonMainStyles = css({
   transition: "all 0.3s ease-in-out",
 });
 
-export const CardButtonIconStyles = css({
+export const cardButtonIconStyles = css({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
