@@ -78,7 +78,7 @@ export const Card: FC<CardProps> = ({ tariff, best, index, period }) => {
       </VStack>
 
       <VStack alignItems={"stretch"} gap={"8px"}>
-        <Text variant={"other"}>Возможности</Text>
+        <Text variant={"other"}>Подходить для</Text>
         <Flex gap={"8px"} flexWrap={"wrap"}>
           <CardTag>Базовый офис</CardTag>
           <CardTag>CRM / кабинеты</CardTag>
