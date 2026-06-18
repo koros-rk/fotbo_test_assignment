@@ -8,12 +8,16 @@ export const buttonGroupRootStyles = css({
   border: "1px solid",
   borderColor: "#999/20",
   background: token("gradients.button-group-root"),
+  flexGrow: "1",
 });
 
 export const buttonGroupItemRecipe = cva({
   base: {
+    flexGrow: "1",
+
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     gap: "8px",
 
     cursor: "pointer",

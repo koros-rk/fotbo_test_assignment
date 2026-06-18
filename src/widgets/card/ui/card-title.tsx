@@ -21,10 +21,15 @@ export const CardTitle: FC<CardTitleProps> = (props) => {
       borderRadius={"16px"}
       className={"card-header"}
       transition={"all 0.3s ease-in-out"}
+      as={"header"}
+      border={"1px solid"}
+      borderColor={"#BE4EFF/50"}
     >
       <HStack gap={"10px"} justifyContent={"space-between"}>
         <VStack alignItems={"stretch"} gap={"4px"}>
-          <Text variant={"h2"}>{props.label}</Text>
+          <Text as={"h3"} variant={"h2"}>
+            {props.label}
+          </Text>
           <HStack alignItems={"baseline"} gap={"6px"}>
             <Text variant={"h2"}>
               {props.currency} {props.price}

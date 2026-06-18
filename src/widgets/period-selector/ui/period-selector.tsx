@@ -15,7 +15,11 @@ export const PeriodSelector: FC<PeriodSelectorProps> = ({
   setPeriod,
 }) => {
   return (
-    <VStack alignItems={"stretch"} gap={"9px"}>
+    <VStack
+      flexGrow={{ smDown: "1", sm: "1", lg: "0" }}
+      alignItems={"stretch"}
+      gap={"9px"}
+    >
       <p className={periodSelectorLabelStyles}>Price per</p>
       <AppSelect
         value={period}

@@ -1,5 +1,4 @@
 import { type FC } from "react";
-import { css } from "../../../../styled-system/css";
 import { Box, Flex, HStack, VStack } from "../../../../styled-system/jsx";
 import type { Tariff } from "../../../api/tariff.types.ts";
 import monitors_1 from "../../../assets/monitors_1.svg";
@@ -89,13 +88,14 @@ export const Card: FC<CardProps> = ({ tariff, best, index, period }) => {
         </Flex>
       </VStack>
 
-      <CardButton
-        className={css({ mt: "auto" })}
-        href={`/buy?tariff_id=${tariff.id.$}`}
-        icon={<ShoppingBag />}
-      >
-        Купить
-      </CardButton>
+      <Box mt={"auto"} as={"footer"}>
+        <CardButton
+          href={`/buy?tariff_id=${tariff.id.$}`}
+          icon={<ShoppingBag />}
+        >
+          Купить
+        </CardButton>
+      </Box>
     </CardContainer>
   );
 };

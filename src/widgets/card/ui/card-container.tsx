@@ -5,6 +5,7 @@ import { cardContainerStyles } from "../styles/card-container-styles.ts";
 export const CardContainer: FC<PropsWithChildren> = ({ children }) => {
   return (
     <VStack
+      as={"article"}
       className={cardContainerStyles}
       position={"relative"}
       flexGrow={"1"}

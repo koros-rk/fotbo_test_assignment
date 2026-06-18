@@ -1,4 +1,5 @@
 import type { FC, ReactNode } from "react";
+import { css } from "../../../styled-system/css";
 import { HStack } from "../../../styled-system/jsx";
 import {
   buttonGroupItemRecipe,
@@ -33,7 +34,7 @@ export const ButtonGroup: FC<ButtonGroupProps> = ({
   };
 
   return (
-    <HStack className={buttonGroupRootStyles}>
+    <HStack flexGrow={"1"} className={buttonGroupRootStyles}>
       {items.map((item) => (
         <button
           key={item.value}
@@ -41,7 +42,7 @@ export const ButtonGroup: FC<ButtonGroupProps> = ({
           className={buttonGroupItemRecipe({ active: isActive(item) })}
         >
           {item.icon}
-          {item.label}
+          <p className={css({ display: { smDown: "none" } })}>{item.label}</p>
         </button>
       ))}
     </HStack>
