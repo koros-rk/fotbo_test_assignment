@@ -55,17 +55,17 @@ export const App = () => {
 
             <Grid gap={"6"} columns={{ sm: 1, md: 2, xl: 4 }}>
               {isLoading &&
-                new Array(4)
-                  .fill("")
-                  .map((_, index) => (
+                new Array(4).fill("").map((_, index) => (
+                  <GridItem key={index}>
                     <Skeleton
                       key={index}
-                      height={"100%"}
+                      height={"600px"}
                       style={{ flexGrow: "1" }}
                       containerClassName={css({ flexGrow: "1" })}
                       borderRadius={"32px"}
                     />
-                  ))}
+                  </GridItem>
+                ))}
 
               {isSuccess &&
                 data.map((item, index, arr) => (
